@@ -2,6 +2,7 @@ from flask import Flask, app, jsonify, redirect, url_for
 from pymongo import MongoClient
 from flask_cors import CORS
 from flask_restful import Api, Resource
+import os
 
 app = Flask(__name__)
 cors = CORS(app)
@@ -25,5 +26,7 @@ api = Api(app)
 api.add_resource(Index, "/", endpoint="index")
 api.add_resource(Graphs, "/graphs", endpoint="graphs")
 
+port = int(os.environ.get('PORT', 5000))
+
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(host='0.0.0.0', port=port)
